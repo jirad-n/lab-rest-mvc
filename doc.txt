@@ -1,0 +1,78 @@
+RESOURCE POST, COMMENT
+
+*** POST
+GET ALL POST
+GET /posts
+
+CREATE POST
+POST /posts
+REQUEST BODY: author, title, body
+
+UPDATE POST
+PATCH /posts/:postId
+
+DELETE POST
+DELETE /posts/:postId
+
+***COMMENT
+GET ALL COMMENT BY POST ID
+GET /posts/:postId/comments
+
+CREATE COMMENT
+POST /posts/:postId/comments
+
+UPDATE
+PATCH /posts/:postId/comments/:commentId
+
+DELETE
+DELETE /posts/:postId/comments/:commentId
+
+Index.js
+const express = require('express');
+// const postRouter = require('./routes/post-routes')
+
+const app = express();
+
+// app.use('/posts', postRouter);
+
+app.listen(8007, ()=>console.log('server running on port 8007'));
+
+post-routes.js
+const express = require('express');
+// const {Router} = require('express);
+
+const postRouter = express.Router();
+//const postRouter =  Router();
+const postController = require('./controllers/post-controller');
+const commentContrller = require('./controllers/comment-controller');
+
+postRouter.get('/', postController.getAllPost);
+postRouter.post('/', postController.creatPost);
+postRouter.patch('/:postId', postController.updatePost);
+postRouter.delete('/:postId', postController.deletePost);
+
+postRouter.get('/:postId/comments', commentContrller.getCommentByPostId);
+postRouter.post('/:postId/comments', commentContrller.createComment);
+postRouter.patch('/:postId/comments/:commentId', commentContrller.updateComment);
+postRouter.delete('/:postId/comments/:commentId', commentContrller.deleteComment);
+
+module.exports = postRouter;
+
+post-controller.js
+const getAllPost = (req, res, next) => {};
+const createPost = (req, res, next) => {};
+const updatePost = (req, res, next) => {};
+const deletePost = (req, res, next) => {};
+
+module.exports = {
+    getAllPost
+    ,createPost
+    ,updatePost
+    ,deletePost
+};
+
+comment-controller.js
+exports.getCommentByPostId = (req, res, next) => {};
+exports.createComment = (req, res, next) => {};
+exports.updateComment = (req, res, next) => {};
+exports.deleteComment = (req, res, next) => {};
